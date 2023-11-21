@@ -1,13 +1,19 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import HomePage from '../pages/HomePage'
+import ProjectPage from '../pages/ProjectPage'
+import PageNotFound from '../pages/PageNotFound'
 
 const AllRoutes = () => {
     return (
-        <Routes>
-            <Route exact path="/" component={HomePage} />
+        <div>
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path='/project' element={<ProjectPage />} />
+                <Route path="*" element={<PageNotFound />} />
+            </Routes>
+        </div>
 
-        </Routes>
     )
 }
 
