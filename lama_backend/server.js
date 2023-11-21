@@ -27,7 +27,6 @@ app.listen(PORT, async () => {
     console.log("Connected to Database sussessfully.");
   } catch (error) {
     console.log("error :", error);
-    res.send({ msg: error.message });
   }
   console.log(`Server running on port ${PORT}`);
 });
