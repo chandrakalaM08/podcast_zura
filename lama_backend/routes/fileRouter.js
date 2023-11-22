@@ -61,8 +61,7 @@ fileRouter.patch("/:fileId", async (req, res) => {
     const { fileId } = req.params;
     const email = req.body.email;
     const newfileData = req.body.fileData;
-    console.log("req body", req.body);
-    console.log("fileData", newfileData);
+
     //Check if the user already exists with the provided email
     let user = await UserModel.findOne({ email });
 
@@ -85,7 +84,7 @@ fileRouter.patch("/:fileId", async (req, res) => {
         .status(404)
         .send({ message: "File not found by this fileId." });
     }
-    console.log("updatedFile", updatedFile);
+
     res.status(200).send({ msg: "File updated successfully!", updatedFile });
   } catch (err) {
     res.status(400).json({ message: err.message });

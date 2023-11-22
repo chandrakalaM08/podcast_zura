@@ -7,7 +7,7 @@ const projectRouter = express.Router();
 projectRouter.get("/:projectId", async (req, res) => {
   try {
     const { projectId } = req.params;
-    console.log(projectId);
+
     // Find the project and populate its files
     const project = await ProjectModel.findById(projectId).populate("files");
 
@@ -30,7 +30,6 @@ projectRouter.post("/create", async (req, res) => {
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
-    console.log("user", user);
 
     let newProject = await ProjectModel.findOne({ projectName });
 
@@ -61,9 +60,10 @@ projectRouter.get("/", async (req, res) => {
     const email = req.email;
 
     // Find the user by email and populate their projects
-    const userProjects = await UserModel.findOne({ email }).populate(
-      "projects"
-    );
+    const userProjects = await UserModel.findOne({ email }).populate({
+      path: "projects",
+      model: ProjectModel,
+    });
 
     if (!userProjects) {
       return res.status(404).json({ message: "User not found" });
