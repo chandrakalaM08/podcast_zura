@@ -33,4 +33,27 @@ userRouter.post("/", async (req, res) => {
   }
 });
 
+userRouter.patch("/update", async (req, res) => {
+  try {
+    const { newUsername } = req.body;
+    const email = req.email;
+    // Find the user by email
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update the username
+    user.username = newUsername;
+    await user.save();
+
+    res
+      .status(200)
+      .json({ message: "Username updated successfully", updatedUser: user });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = { userRouter };
