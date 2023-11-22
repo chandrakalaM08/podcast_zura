@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createProjectForTheLoggedInUser } from '../../redux/actions';
 
 const Popup = ({ togglePopup, toggleProjects }) => {
+    const dispatch = useDispatch();
+    const email = localStorage.getItem("email") || ""
+    const token = localStorage.getItem("token") || ""
     const [projectName, setProjectName] = useState('');
     const [warning, setWarning] = useState('');
-
+    console.log("inside project popup token", token)
     const handleInputChange = (event) => {
         const inputText = event.target.value;
         setProjectName(inputText);
@@ -19,7 +24,7 @@ const Popup = ({ togglePopup, toggleProjects }) => {
 
     const createProject = () => {
         //  logic to create a project 
-
+        dispatch(createProjectForTheLoggedInUser(email, projectName, token))
         // Close the popup
         togglePopup();
         toggleProjects()

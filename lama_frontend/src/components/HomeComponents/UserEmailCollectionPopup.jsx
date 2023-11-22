@@ -1,21 +1,20 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProjects, loginOrCreateUser } from '../../redux/actions';
 
-const UserEmailCollectionPopup = ({ handleCloseEmailCollectionPopup, showEmailPopup }) => {
+const UserEmailCollectionPopup = ({ handleCloseEmailCollectionPopup, setShowEmailPopup, showEmailPopup }) => {
+    const dispatch = useDispatch();
     const [warning, setWarning] = useState('');
 
-    const [email, setEmail] = useState(localStorage.getItem("userEmail") || '');
-    console.log("inside email collection", email)
+    const [email, setEmail] = useState('');
+
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     };
 
     const handleSubmitEmail = () => {
-        if (email !== '') {
-            localStorage.setItem("userEmail", email)
-            handleCloseEmailCollectionPopup();
-        } else {
-            alert('Please enter a valid email address');
-        }
+        handleCloseEmailCollectionPopup()
+        dispatch(loginOrCreateUser(email))
     };
 
     return (

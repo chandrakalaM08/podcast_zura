@@ -3,6 +3,7 @@ import Navbar from '../components/HomeComponents/Navbar'
 import HomeMainSection from '../components/HomeComponents/HomeMainSection'
 
 const HomePage = () => {
+
     return (
         <div>
             <Navbar />

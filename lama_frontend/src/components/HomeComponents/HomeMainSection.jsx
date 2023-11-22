@@ -11,7 +11,7 @@ const HomeMainSection = () => {
     const [showProjects, setShowProjects] = useState(false)
 
     const [showEmailPopup, setShowEmailPopup] = useState(false);
-    const loggedInUser = localStorage.getItem("userEmail") || ""
+    const token = localStorage.getItem("token") || ""
     const handleCloseEmailCollectionPopup = () => {
         setShowEmailPopup(false);
     };
@@ -25,9 +25,9 @@ const HomeMainSection = () => {
     }
 
     useEffect(() => {
-        if (loggedInUser) {
+        if (token) {
             setShowPopup(false);
-            setShowProjects(true)// Close popup if email is already stored
+            setShowProjects(true)
         }
     }, []);
 
@@ -49,12 +49,11 @@ const HomeMainSection = () => {
         };
     }, [showPopup]);
 
-    const userEmail = localStorage.getItem("userEmail") || ""
 
     return (
         <div className="max-w-screen-lg mx-auto">
-            {showEmailPopup && userEmail === "" ? <UserEmailCollectionPopup show={showEmailPopup}
-                handleCloseEmailCollectionPopup={handleCloseEmailCollectionPopup} /> : (<>
+            {showEmailPopup && token === "" ? <UserEmailCollectionPopup show={showEmailPopup}
+                handleCloseEmailCollectionPopup={handleCloseEmailCollectionPopup} setShowEmailPopup={setShowEmailPopup} /> : (<>
                 </>)}
 
             <div className='flex border border-gray-500 rounded-full my-7 w-40 px-2 py-1 mb-0 mx-0'
@@ -81,7 +80,8 @@ const HomeMainSection = () => {
                             <p className='text-white text-2xl font-bold text-center font-Roboto'>Create New Project</p>
                         </div>
                     </div>
-                    {showPopup && <Popup togglePopup={togglePopup} toggleProjects={toggleProjects} />} {/* Conditionally render Popup based on showPopup state */}
+                    {showPopup && <Popup togglePopup={togglePopup} toggleProjects={toggleProjects} token={token
+                    } />} {/* Conditionally render Popup based on showPopup state */}
 
                 </div>
             )}
