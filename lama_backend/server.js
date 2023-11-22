@@ -9,8 +9,13 @@ const { authMiddleware } = require("./middleware/AuthMiddleware");
 require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT;
+const corsOrigin = {
+  origin: "http://localhost:3000",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOrigin));
 
-app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
