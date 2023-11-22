@@ -9,9 +9,6 @@ const secretKey = process.env.secretKey;
 userRouter.post("/", async (req, res) => {
   try {
     const { email } = req.body;
-    console.log("userEmail inside req", req.body);
-
-    console.log("userEmail", email);
     // Check if the user already exists with the provided email
     const existingUser = await UserModel.findOne({ email });
     if (existingUser) {
@@ -20,6 +17,7 @@ userRouter.post("/", async (req, res) => {
         msg: "User already exists, and  Logged in successfully",
         token,
       });
+      return;
     }
 
     // Create a new user if it doesn't exist
