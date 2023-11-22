@@ -16,6 +16,7 @@ userRouter.post("/", async (req, res) => {
       res.status(201).send({
         msg: "User already exists, and  Logged in successfully",
         token,
+        existingUser,
       });
       return;
     }
