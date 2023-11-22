@@ -58,7 +58,7 @@ projectRouter.post("/create", async (req, res) => {
 
 projectRouter.get("/", async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email } = req.params;
 
     // Find the user by email and populate their projects
     const userProjects = await UserModel.findOne({ email }).populate(
