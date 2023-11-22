@@ -59,7 +59,7 @@ fileRouter.get("/:fileId", async (req, res) => {
 fileRouter.patch("/:fileId", async (req, res) => {
   try {
     const { fileId } = req.params;
-    const email = req.body.email;
+    const email = req.email;
     const newfileData = req.body.fileData;
 
     //Check if the user already exists with the provided email
@@ -94,7 +94,7 @@ fileRouter.patch("/:fileId", async (req, res) => {
 fileRouter.delete("/:fileId", async (req, res) => {
   try {
     const { fileId } = req.params;
-
+    console.log("inside delete", fileId, typeof fileId);
     const deletedFile = await FileModel.findByIdAndDelete(fileId);
 
     if (!deletedFile) {
