@@ -16,7 +16,6 @@ const corsOrigin = {
     "https://lama-podcats.vercel.app/",
   ],
   credentials: true,
-  optionSuccessStatus: 200,
 };
 app.use(cors(corsOrigin));
 
