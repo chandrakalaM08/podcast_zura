@@ -23,7 +23,6 @@ export const loginOrCreateUser = (email) => async (dispatch) => {
     localStorage.setItem("email", email);
     localStorage.setItem("loggedInUser", JSON.stringify(existingUser));
 
-    console.log("inside login", email, token, response.data);
     if (token) {
       localStorage.setItem("token", token); // Save token to localStorage on successful login
     }
@@ -36,7 +35,7 @@ export const loginOrCreateUser = (email) => async (dispatch) => {
 
 // Set the token as a header in the request
 const accessToken = localStorage.getItem("token");
-console.log("accessToken", accessToken);
+
 const config = {
   headers: {
     Authorization: `Bearer ${accessToken}`,
@@ -45,11 +44,9 @@ const config = {
 // Action to fetch all projects related to an email id
 export const fetchProjects = () => async (dispatch) => {
   try {
-    console.log("fetchProjects function called", config);
-
     dispatch({ type: FETCH_PROJECTS_REQUEST });
     const response = await axios.get(`${apiUrl}/project`, config);
-    console.log("response", response.data);
+
     dispatch({
       type: FETCH_PROJECTS_SUCCESS,
       payload: response.data,

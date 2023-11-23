@@ -22,6 +22,7 @@ const HomeMainSection = () => {
 
     const toggleProjects = () => {
         setShowProjects(true)
+        window.location.reload()
     }
 
     useEffect(() => {

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import axios from "axios"
 import Toast from '../Toast';
+import Breadcrumbs from '../Breadcrumbs';
 const Settings = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
     const [apiStatus, setApiStatus] = useState(null)
@@ -42,7 +43,9 @@ const Settings = () => {
 
 
     return (
-        <div className='w-screen mt-20 ml-14'>
+        <div className='w-screen mt-2 ml-14'>
+            <Breadcrumbs className="ml-96 mb-4" text1={""} text2={"Account Settings"} />
+
             <h1 className='text-purple-700 text-4xl font-bold ml-80'>
                 Account Settings
             </h1>

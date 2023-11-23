@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FaSearchLocation, FaRegEdit } from "react-icons/fa";
 import { getFileById, updateFile } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
+import Breadcrumbs from '../Breadcrumbs';
 
 const EditTranscription = () => {
 
@@ -25,10 +26,12 @@ const EditTranscription = () => {
     const updateFileDataInDB = () => {
         console.log("edited data", editedData)
         dispatch(updateFile(fileId, editedData))
-        window.location.href = "http://localhost:3000/"
+        window.location.href = "/"
     }
     return (
-        <div className='w-screen mt-20 ml-14'>
+        <div className='w-screen mt-2 ml-14'>
+            <Breadcrumbs className="ml-96 mb-4" text1={"Project"} text2={"Transcript"} />
+
             <div className='flex justify-between w-3/4'>
                 <h1 className='text-purple-700 text-3xl font-bold ml-80'>
                     Edit Transcript
@@ -52,10 +55,10 @@ const EditTranscription = () => {
                 <hr />
                 <div className='flex justify-center' >
                     <input type="textarea" value={editMode ? editedData : data.replace(/\n/g, '<br />')}
-                        className="w-9/12 h-96 bg-red-600 resize-none"
+                        className="w-11/12 h-96 my-2"
                         disabled={!editMode}
-                        name="textValue"
-                        style={{ whiteSpace: 'pre-wrap', lineHeight: '1.5' }}
+                        rows="2" cols="30"
+                        name="text"
                         onChange={(e) => { setEditedData(e.target.value) }}
                     />
                 </div>

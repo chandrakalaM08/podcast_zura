@@ -1,19 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 import moment from 'moment';
-import { deleteFile, fetchProjectFiles } from '../../redux/actions';
+import { deleteFile } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 
-const ProjectFilesDisplayScreen = ({ files, toggleEditFileData }) => {
+const ProjectFilesDisplayScreen = ({ files, toggleEditFileData, fetchFilesForProject }) => {
+    const { id } = useParams()
     const dispatch = useDispatch();
-
     const handleDelete = (id) => {
-        dispatch(deleteFile(id));
+        dispatch(deleteFile(id)).then((res) => {
+            fetchFilesForProject(id)
+        })
     }
 
-
     return (
-        <div className='ml-44 w-9/12 mt-4 flex flex-col justify-center items-center' style={{ border: "5px solid yellow" }}>
+        <div className='ml-44 w-9/12 mt-4 flex flex-col justify-center items-center'>
             <div
                 className='flex w-9/12 bg-purple-800 text-white py-2 px-4 justify-around rounded-md items-center '>
                 <h1 className='font-medium text-lg'>

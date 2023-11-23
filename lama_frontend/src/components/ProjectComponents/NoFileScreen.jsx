@@ -3,7 +3,7 @@ import fileUploadIcon from "../../assets/fileUploadIcon.png"
 const NoFileScreen = () => {
     return (
 
-        <div className='ml-80 w-3/4 mt-8 flex justify-center items-center' style={{ border: "5px solid yellow" }}>
+        <div className='ml-80 w-3/4 mt-8 flex justify-center items-center' >
 
             <div>
                 <h1 className='mb-4 text-base font-semibold px-72 ml-60'> Or</h1>

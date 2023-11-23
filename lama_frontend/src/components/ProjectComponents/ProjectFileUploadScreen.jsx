@@ -4,52 +4,59 @@ import spotify from "../../assets/spotify.svg"
 import NoFileScreen from './NoFileScreen'
 import CreateFilePopup from './CreateFilePopup'
 import { useParams } from 'react-router-dom';
+
 import { fetchProjectFiles } from "../../redux/actions"
 import ProjectFilesDisplayScreen from './ProjectFilesDisplayScreen'
 import EditTranscription from './EditTranscription'
+import Breadcrumbs from '../Breadcrumbs'
+import { useSelector } from 'react-redux'
 const ProjectFileUploadScreen = () => {
-    console.log("displaying file upload")
+
     const { id } = useParams()
     const [files, setFiles] = useState([])
     const [showFileUploadPopup, setShowFileUploadPopup] = useState(false)
     const [showEdit, setShowEdit] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const toggleEditFileData = () => {
         setShowEdit(!showEdit)
     }
 
 
-
-    console.log("inside upload screen id", id)
     const toggleFileUploadPopup = () => {
         setShowFileUploadPopup(!showFileUploadPopup);
     };
 
-
-
-    useEffect(() => {
+    const fetchFilesForProject = () => {
         fetchProjectFiles(id).then((files) => {
             console.log('Project files:', files);
             setFiles(files)
         })
             .catch((error) => {
                 console.error('Error fetching project files:', error.message);
-                // Handle errors appropriately
             })
+    }
+
+    useEffect(() => {
+        fetchFilesForProject()
 
     }, [])
+
+
 
     if (showEdit) {
         return <EditTranscription />
     }
 
     return (
-        <div className='w-screen mt-20 ml-14'>
+
+        <div className='w-screen mt-2 ml-14'>
+            <Breadcrumbs className="ml-96 mb-4" text1={"Project"} text2={"Upload"} />
             <h1 className='text-purple-700 text-4xl font-bold ml-80'>
                 Upload
             </h1>
 
-            <div style={{ border: "3px solid blue" }} className=" flex ml-80 w-9/12 bg-white p-2 rounded-xl shadow-md border border-gray-300
+            <div className=" flex ml-80 w-9/12 bg-white p-2 rounded-xl 
                  mt-2 mx-4 pr-2">
                 <div onClick={toggleFileUploadPopup}
                     className='w-52 h-24 rounded-lg flex justify-center items-center mr-14 border border-gray-300 border-2'>
@@ -79,9 +86,12 @@ const ProjectFileUploadScreen = () => {
                     </div>
 
                 </div>
-                {showFileUploadPopup && <CreateFilePopup toggleFileUploadPopup={toggleFileUploadPopup} projectId={id} />}
+                {showFileUploadPopup && <CreateFilePopup setLoading={setLoading} toggleFileUploadPopup={toggleFileUploadPopup} fetchFilesForProject={fetchFilesForProject} projectId={id} />}
             </div>
-            {files.length === 0 ? <NoFileScreen /> : < ProjectFilesDisplayScreen files={files} toggleEditFileData={toggleEditFileData} />}
+            <hr />
+            {files.length === 0 && !loading ? <NoFileScreen /> : < ProjectFilesDisplayScreen files={files} fetchFilesForProject={fetchFilesForProject}
+                toggleEditFileData={toggleEditFileData}
+            />}
         </div>
     )
 }
