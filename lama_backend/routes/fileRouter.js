@@ -102,10 +102,9 @@ fileRouter.delete("/:fileId", async (req, res) => {
     }
 
     // Remove the file ID from the associated project
-    const project = await ProjectModel.findByIdAndUpdate(
+    const updatedProject = await ProjectModel.updateMany(
       { files: fileId },
-      { $pull: { files: fileId } },
-      { new: true }
+      { $pull: { files: fileId } }
     );
 
     res.send({ message: "File deleted successfully" });
