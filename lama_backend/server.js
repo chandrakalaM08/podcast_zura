@@ -10,7 +10,11 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT;
 const corsOrigin = {
-  origin: "http://localhost:3000" || "https://lama-podcasts.netlify.app/",
+  origin: [
+    "http://localhost:3000",
+    "https://lama-podcasts.netlify.app/",
+    "https://lama-podcats.vercel.app/",
+  ],
   credentials: true,
   optionSuccessStatus: 200,
 };
