@@ -9,15 +9,15 @@ const { authMiddleware } = require("./middleware/AuthMiddleware");
 require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT;
-const corsOrigin = {
-  origin: [
-    "http://localhost:3000",
-    "https://lama-podcasts.netlify.app/",
-    "https://lama-podcats.vercel.app/",
-  ],
-  credentials: true,
-};
-app.use(cors(corsOrigin));
+// const corsOrigin = {
+//   origin: [
+//     "http://localhost:3000",
+//     "https://lama-podcasts.netlify.app/",
+//     "https://lama-podcats.vercel.app/",
+//   ],
+//   credentials: true,
+// };
+app.use(cors());
 
 app.use(express.json());
 
